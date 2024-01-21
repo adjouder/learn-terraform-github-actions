@@ -9,6 +9,10 @@ jobs:
   deploy-terraform:
     name: Run terraform
     runs-on: self-hosted
+    env:
+      TF_DIR: "./"
+      AWS_REGION: "eu-west-3"
+
     steps:
 
     - name: Checkout Repo
