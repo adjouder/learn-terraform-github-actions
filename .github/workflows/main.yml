@@ -6,13 +6,21 @@ on:
       - main
 
 jobs:
-  tf_fmt:
-    name: Deploy Site
-    runs-on: ubuntu-latest
+  deploy-terraform:
+    name: Run terraform
+    runs-on: self-hosted
+    env:
+      TF_DIR: terraform/${{ inputs.env }}
+      AWS_REGION: ${{ inputs.region }}
+
     steps:
 
     - name: Checkout Repo
       uses: actions/checkout@v3
+
+    - uses: actions/setup-node@v2
+      with:
+        node-version: 16.13.1
 
     - name: Terraform Init
       uses: hashicorp/terraform-github-actions/init@v0.4.0
