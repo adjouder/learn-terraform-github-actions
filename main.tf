@@ -1,28 +1,14 @@
 provider "aws" {
-  region = var.region
+    region     = "${var.region}"    
+    access_key = "${var.access_key}"
+    secret_key = "${var.secret_key}"
 }
 
-data "aws_ami" "ubuntu" {
-  most_recent = true
-
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
-  owners = ["099720109477"] # Canonical
-}
-
-resource "aws_instance" "ubuntu" {
-  ami           = data.aws_ami.ubuntu.id
-  instance_type = var.instance_type
-
-  tags = {
-    Name = var.instance_name
-  }
+################## Creating an EKS Cluster ##################
+resource "aws_eks_cluster" "cluster" {
+  name     = "petclinic_eks_1"
+  role_arn = "arn:aws:iam::322515116119:role/task98_role_152500.25571715"
+  vpc_config {
+    subnet_ids = module.vpc.private_subnets
+    }
 }
