@@ -2,12 +2,12 @@
 provider "aws" {
   region = var.region
 }
-/*
+
 module "eks" {
   source                  = "./modules/eks"
   aws_public_subnet       = module.vpc.aws_public_subnet
   vpc_id                  = module.vpc.vpc_id
-  cluster_name            = "module-eks-${random_string.suffix.result}"
+  cluster_name            = "petclinic"
   endpoint_public_access  = true
   endpoint_private_access = false
   public_access_cidrs     = ["0.0.0.0/0"]
@@ -31,4 +31,3 @@ module "vpc" {
   rt_route_cidr_block     = "0.0.0.0/0"
 
 }
-*/
