@@ -1,14 +1,31 @@
-provider "aws" {
-    region     = "${var.region}"    
-    access_key = "${var.access_key}"
-    secret_key = "${var.secret_key}"
+###### root/main.tf
+/*
+module "eks" {
+  source                  = "./modules/eks"
+  aws_public_subnet       = module.vpc.aws_public_subnet
+  vpc_id                  = module.vpc.vpc_id
+  cluster_name            = "module-eks-${random_string.suffix.result}"
+  endpoint_public_access  = true
+  endpoint_private_access = false
+  public_access_cidrs     = ["0.0.0.0/0"]
+  node_group_name         = "cloudquicklabs"
+  scaling_desired_size    = 1
+  scaling_max_size        = 1
+  scaling_min_size        = 1
+  instance_types          = ["t3.small"]
+  key_pair                = "TestKeyPair"
 }
 
-################## Creating an EKS Cluster ##################
-resource "aws_eks_cluster" "cluster" {
-  name     = "petclinic_eks_1"
-  role_arn = "arn:aws:iam::322515116119:role/task98_role_152500.25571715"
-  vpc_config {
-    subnet_ids = module.vpc.private_subnets
-    }
+module "vpc" {
+  source                  = "./modules/vpc"
+  tags                    = "cloudquicklabs"
+  instance_tenancy        = "default"
+  vpc_cidr                = "10.0.0.0/16"
+  access_ip               = "0.0.0.0/0"
+  public_sn_count         = 2
+  public_cidrs            = ["10.0.1.0/24", "10.0.2.0/24"]
+  map_public_ip_on_launch = true
+  rt_route_cidr_block     = "0.0.0.0/0"
+
 }
+*/
